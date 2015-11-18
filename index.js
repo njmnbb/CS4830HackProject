@@ -20,6 +20,14 @@ http.listen(3000, function(){
   console.log('listening on *:3000');
 });
 
-function myFunction() {
-    
+function runSeq(seqString) {
+	/*
+	if ( typeof stringValue != string ) {
+		return;
+	} 
+	*/
+    var i = 0;
+    for( i = 0; i < seqString.lenth; i++ ) {
+    	// Take action here.
+    }
 }
