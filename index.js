@@ -1,5 +1,6 @@
 // Socket Simon
-// By Nick Martini and Dan Hart
+// By Nick Martini 
+// and Dan Hart
 
 // Debug 1, 0 for no.
 var debug = 0;
