@@ -1,0 +1,74 @@
+* {
+	margin: 0;
+	padding: 0;
+	border-radius: 4px;
+}
+
+body {
+	background-color: #f5efef;
+}
+
+.header-text {
+	padding-top: 30px;
+	text-align: center;
+	font-size: 50px;
+	font-family: "Helvetica";
+	font-weight: bold;
+}
+
+.logo {
+	position: absolute;
+	padding-left: 20px;
+	width: 10%;
+}
+
+.header {
+	width: 100%;
+	height: 150px;
+}
+
+.player, .simon {
+	height: 500px;
+	width: 350px;
+	margin-top: 50px;
+	border: 1px solid grey;
+	text-align: center;
+	font-family: "Helvetica";
+	font-size: 25px;
+	position: relative;
+	background-color: white;
+}
+
+.player {
+	float: left;
+	margin-left: 20%;
+}
+
+.simon {
+	float: right;
+	margin-right: 20%;
+}
+
+.role-description {
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+button {
+	cursor: pointer;
+	position: absolute;
+	bottom: 20px;
+	margin-left: -50.4px;
+	left: 50%;
+	font-size: 20px;
+	color: white;
+	padding: 10px 30px 10px 30px;
+	background-color: #06f906;
+	border: none;
+	border-radius: 5px;
+	outline: none;
+}
+
+button:active {
+	background-color: #33cc33;
+}
