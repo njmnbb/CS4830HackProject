@@ -13,6 +13,14 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/images');
+});
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/main.css');
+});
+
 io.on('connection', function(socket){
   socket.on('pattern sequence', function(patten_sequence){
     io.emit('pattern sequence', pattern_sequence);
@@ -20,8 +28,8 @@ io.on('connection', function(socket){
   });
 });;
 
-http.listen(80, function(){
-  console.log('listening on *:80');
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
 
 // This function is intended for use for the 'player'
