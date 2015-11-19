@@ -31,29 +31,27 @@
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script type="text/javascript">
-		var role; 
-		var turn;
+		var role;
 
 		// Function for 'start' buttons
 	 	function startGame(sentRole) {
 	    	//alert('You started the game as a ' + sentRole);
 	    	role = sentRole;
 
-	    	switch( role ) {
-	    		case simon:
-	    		turn = 1
-	    		break;
-	    		case player:
-	    		turn = 0
-	    		break;
-	    		default:
-	    		console.log(role)
-	    	}
-
-	    	// console.log('turn == ' + turn + 'role == ' + role);
+	    	// Clear Header and game frame
+	    	clearDivByClassName('simon');
+	    	clearDivByClassName('player');
+	    	clearDivByClassName('header');
 
 	    	// populate with gameData
 	    	loadGameAs(role, 'player', 'simon', 'header');
+	 	}
+
+	 	// Function to get current role of player.
+	 	function currentRole() {
+	 		if( role != undefined )
+	 			// console.log(role);
+	 			return role;
 	 	}
 
 	 	// Clear a Div
@@ -63,52 +61,21 @@
 
 		// Game functions
 		function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
-			clearDivByClassName(leftDiv);
-			clearDivByClassName(rightDiv);
-			clearDivByClassName(headerDiv);
-
-			if( role == 'player' ) {
-				if( turn == 0 ) {
-					editHtml(headerDiv, '<p class = "header-text">Waiting for Simon...</p>');
-				}
-				else {
-					editHtml(headerDiv, '<p class = "header-text">Your turn!</p>');
-				}
-				editHtml(leftDiv, '<p class = "header-text">You</p>
-					<img src="images/simon/green.png" class = "quadrant">
-					<img src="images/simon/red.png" class = "quadrant">
-					<img src="images/simon/yellow.png" class = "quadrant">
-					<img src="images/simon/blue.png" class = "quadrant">');
-				editHtml(rightDiv, '<p class = "header-text">Simon</p>
-					<img src="images/simon/green.png" class = "quadrant">
-					<img src="images/simon/red.png" class = "quadrant">
-					<img src="images/simon/yellow.png" class = "quadrant">
-					<img src="images/simon/blue.png" class = "quadrant">');
+			if( role == 'player') {
+			editHtml(headerDiv, '<p class = "header-text">Waiting for Simon...</p>');
+			editHtml(leftDiv, '<p class = "header-text">You</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class="role-description">put simon thingy here</p>');
+			editHtml(rightDiv, '<p class = "header-text">Simon</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "role-description">lalalal the simon is making a pattern</p>');
 			}
 			else if( role == 'simon' ) {
-				if( turn == 0 ) {
-					editHtml(headerDiv, '<p class = "header-text">Waiting for minion to copy you...</p>');
-				else {
-					editHtml(headerDiv, '<p class = "header-text">Make a Pattern!');
-				}
-				editHtml(leftDiv, '<p class = "header-text">You</p>
-					<img src="images/simon/green.png" class = "quadrant">
-					<img src="images/simon/red.png" class = "quadrant">
-					<img src="images/simon/yellow.png" class = "quadrant">
-					<img src="images/simon/blue.png" class = "quadrant">');
-				editHtml(rightDiv, '<p class = "header-text">Player</p>
-					<img src="images/simon/green.png" class = "quadrant">
-					<img src="images/simon/red.png" class = "quadrant">
-					<img src="images/simon/yellow.png" class = "quadrant">
-					<img src="images/simon/blue.png" class = "quadrant">');
+			editHtml(headerDiv, '<p class = "header-text">Create a pattern... NOW YOU MF</p>');
+			editHtml(leftDiv, '<p class = "header-text">You</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "<p class="role-description">record the pattern here.... lolol');
+			editHtml(rightDiv, '<p class = "header-text">Player</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "role-description">the player is here.</p>');
 			}
 			else {
-				editHtml(headerDiv, 'Error, No Role Set');
+				// No
 			}
 		}
 
-		// Shortcut for editing html 
-		// BY CLASS NAME
 		function editHtml(className, html) {
 			document.getElementsByClassName(className)[0].innerHTML = html;
 		}
