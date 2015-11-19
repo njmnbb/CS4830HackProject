@@ -20,8 +20,8 @@ io.on('connection', function(socket){
   });
 });;
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(80, function(){
+  console.log('listening on *:80');
 });
 
 // This function is intended for use for the 'player'
