@@ -12,12 +12,23 @@
 	<div class = "player">
 		<img src="images/player.jpg">
 		<p class = "role-description">I am the player. I play things that are given to me.</p>
-		<a href = "#"><button>Start</button></a>
+		<button id="player" onclick="startGame(this.id)">Start</button>
 	</div>
 	<div class = "simon">
 		<img src="images/simon.jpg">
 		<p class = "role-description">I am Simon, hear me roar. I am to be feared and nothing else.</p>
-		<a href = "#"><button>Start</button></a>
+		<button id="simon" onclick="startGame(this.id)">Start</button>
 	</div>
+
+	<!-- Scripts at bottom for faster page loading -->
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script type="text/javascript">
+
+	// Function for 'start' buttons
+ 	function startGame(role) {
+    	alert('You started the game as a ' + role);
+ 	}
+	</script>
 </body>
 </html>
