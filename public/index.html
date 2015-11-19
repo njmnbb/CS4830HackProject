@@ -76,13 +76,33 @@
 
 			if( role == 'player') {
 				editHtml(headerDiv, '<p class = "header-text">Waiting for Simon...</p>');
-				editHtml(leftDiv, '<p class = "header-text">You</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class="role-description">put simon thingy here</p>');
-				editHtml(rightDiv, '<p class = "header-text">Simon</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "role-description">lalalal the simon is making a pattern</p>');
+				editHtml(leftDiv, '<p class = "header-text">You</p>
+					<img src="images/simon/green.png" class = "quadrant">
+					<img src="images/simon/red.png" class = "quadrant">
+					<img src="images/simon/yellow.png" class = "quadrant">
+					<img src="images/simon/blue.png" class = "quadrant">
+					<p class="role-description">put simon thingy here</p>');
+				editHtml(rightDiv, '<p class = "header-text">Simon</p>
+					<img src="images/simon/green.png" class = "quadrant">
+					<img src="images/simon/red.png" class = "quadrant">
+					<img src="images/simon/yellow.png" class = "quadrant">
+					<img src="images/simon/blue.png" class = "quadrant">
+					<p class = "role-description">lalalal the simon is making a pattern</p>');
 			}
 			else if( role == 'simon' ) {
 				editHtml(headerDiv, '<p class = "header-text">Create a pattern... NOW YOU MF</p>');
-				editHtml(leftDiv, '<p class = "header-text">You</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "<p class="role-description">record the pattern here.... lolol');
-				editHtml(rightDiv, '<p class = "header-text">Player</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "role-description">the player is here.</p>');
+				editHtml(leftDiv, '<p class = "header-text">You</p>
+					<img src="images/simon/green.png" class = "quadrant">
+					<img src="images/simon/red.png" class = "quadrant">
+					<img src="images/simon/yellow.png" class = "quadrant">
+					<img src="images/simon/blue.png" class = "quadrant">
+					<p class = "<p class="role-description">record the pattern here.... lolol');
+				editHtml(rightDiv, '<p class = "header-text">Player</p>
+					<img src="images/simon/green.png" class = "quadrant">
+					<img src="images/simon/red.png" class = "quadrant">
+					<img src="images/simon/yellow.png" class = "quadrant">
+					<img src="images/simon/blue.png" class = "quadrant">
+					<p class = "role-description">the player is here.</p>');
 			}
 			else {
 				editHtml(headerDiv, 'Error, No Role Set');
