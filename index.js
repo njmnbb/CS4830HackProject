@@ -5,12 +5,13 @@
 // Debug 1, 0 for no.
 var debug = 0;
 
-var app = require('express')();
+var express = require('express');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-app.get('/', function(req, res){
-	res.sendFile(__dirname + '/index.html');
-});
+var app = express();
+
+// http://blog.modulus.io/nodejs-and-express-static-content
+app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket){
   socket.on('pattern sequence', function(patten_sequence){
@@ -19,8 +20,8 @@ io.on('connection', function(socket){
   });
 });;
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+app.listen(process.env.PORT || 3000, function(){
+	console.log('listening on *:3000');
 });
 
 // This function is intended for use for the 'player'
