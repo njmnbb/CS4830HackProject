@@ -13,16 +13,16 @@
 	<!-- Game Frame -->
 	<div id="game">
 
-	<div class = "player">
-		<img src="images/player.jpg">
-		<p class = "role-description">I am the player. I play things that are given to me.</p>
-		<button id="player" onclick="startGame(this.id)">Start</button>
-	</div>
-	<div class = "simon">
-		<img src="images/simon.jpg">
-		<p class = "role-description">I am Simon, hear me roar. I am to be feared and nothing else.</p>
-		<button id="simon" onclick="startGame(this.id)">Start</button>
-	</div>
+		<div class = "player">
+			<img src="images/player.jpg">
+			<p class = "role-description">I am the player. I play things that are given to me.</p>
+			<button id="player" onclick="startGame(this.id)">Start</button>
+		</div>
+		<div class = "simon">
+			<img src="images/simon.jpg">
+			<p class = "role-description">I am Simon, hear me roar. I am to be feared and nothing else.</p>
+			<button id="simon" onclick="startGame(this.id)">Start</button>
+		</div>
 
 	<!-- End Game Frame -->
 	</div>
@@ -31,50 +31,50 @@
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script type="text/javascript">
-	var role;
+		var role;
 
-	// Function for 'start' buttons
- 	function startGame(sentRole) {
-    	//alert('You started the game as a ' + sentRole);
-    	role = sentRole;
+		// Function for 'start' buttons
+	 	function startGame(sentRole) {
+	    	//alert('You started the game as a ' + sentRole);
+	    	role = sentRole;
 
-    	// Clear Header and game frame
-    	clearDiv('simon');
-    	clearDiv('player');
-    	clearDiv('header');
+	    	// Clear Header and game frame
+	    	clearDiv('simon');
+	    	clearDiv('player');
+	    	clearDiv('header');
 
-    	// populate with gameData
-    	loadGameAs(role, 'player', 'simon', 'header');
- 	}
+	    	// populate with gameData
+	    	loadGameAs(role, 'player', 'simon', 'header');
+	 	}
 
- 	// Function to get current role of player.
- 	function currentRole() {
- 		if( role != undefined )
- 			// console.log(role);
- 			return role;
- 	}
+	 	// Function to get current role of player.
+	 	function currentRole() {
+	 		if( role != undefined )
+	 			// console.log(role);
+	 			return role;
+	 	}
 
- 	// Clear a Div
- 	function clearDiv(elementID) {
-    	document.getElementsByClassName(elementID)[0].innerHTML = "";
-	}
-
-	// Game functions
-	function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
-		if( role == 'player') {
-		document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Waiting for Simon...</p>';
-		document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><img src="images/you.png"><p class="ole-description">put simon thingy here</p>';
-		document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Them</p><img src="images/them.png"><p class = "<p class="ole-description">lalalal the simon is making a pattern</p>';
+	 	// Clear a Div
+	 	function clearDiv(elementID) {
+	    	document.getElementsByClassName(elementID)[0].innerHTML = "";
 		}
-		else if( role == 'simon' ) {
-		document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Create a pattern... NOW YOU MF</p>';
-		document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><img src="images/you.png"><p class = "<p class="role-description">record the pattern here.... lolol';
-		document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Them</p><img src="images/them.png"><p class = "<p class="ole-description">the player is here.</p>';
+
+		// Game functions
+		function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
+			if( role == 'player') {
+			document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Waiting for Simon...</p>';
+			document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class="role-description">put simon thingy here</p>';
+			document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "role-description">lalalal the simon is making a pattern</p>';
+			}
+			else if( role == 'simon' ) {
+			document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Create a pattern... NOW YOU MF</p>';
+			document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "<p class="role-description">record the pattern here.... lolol';
+			document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "role-description">the player is here.</p>';
+			}
+			else {
+				// No
+			}
 		}
-		else {
-			// No
-		}
-	}
 	</script>
 </body>
 </html>
