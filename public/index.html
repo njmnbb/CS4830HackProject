@@ -28,12 +28,13 @@
 	</div>
 
 	<!-- Scripts at bottom for faster page loading -->
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-	<script src="https://cdn.socket.io/socket.io-1.2.0.js">
+	<script>
 		var socket = io();
 		var role;
-		//var simonArr = [];
-		//var round = 1;
+		var simonArr = [];
+		var round = 1;
 
 		// Function for 'start' buttons
 	 	function startGame(sentRole) {
@@ -47,9 +48,9 @@
 
 	    	// populate with gameData
 	    	loadGameAs(role, 'player', 'simon', 'header');
-	    	while(1) {
+	    	// while(1) {
 	    		playRound();
-	    	}
+	    	// }
 	 	}
 
 	 	// Function to get current role of player.
@@ -72,9 +73,6 @@
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant">';
 			}
 			else if( role == 'simon' ) {
-				socket.on('simon message', function(msg){
-					console.log("Role 'Simon'. Message recieved");
-				});
 				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Create a pattern...</p>';
 				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input><button>Send</button>';
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant">';
@@ -96,7 +94,7 @@
 					simonArr.push($(this).attr('value'));
 					console.log(simonArr);
 					console.log(round);
-					//socket.emit('simon message', "hello");
+					socket.emit('simon message', simonArr);
 				}
 			});
 		}
