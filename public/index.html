@@ -70,27 +70,9 @@
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant">';
 			}
 			else if( role == 'simon' ) {
-				socket.on('simon message', function(msg){
-					console.log("Role 'Simon'. Message recieved");
-				});
 				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Create a pattern...</p>';
 				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input><button>Send</button>';
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant">';
-
-				// Appends the id of the clicked quadrant to
-				// an array. Array can only be as long as the current
-				// round (i.e. on round 3, array can only have 3 values)
-				$(document).on("click", ".quadrant-active", function() {
-					if(simonArr.length >= round) {
-						return 0;
-					}
-					else {
-						simonArr.push($(this).attr('value'));
-						console.log(simonArr);
-						console.log(round);
-						//socket.emit('simon message', "hello");
-					}
-				});
 			}
 			else {
 				// No
