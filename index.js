@@ -2,9 +2,6 @@
 // By Nick Martini 
 // and Dan Hart
 
-// Debug 1, 0 for no.
-var debug = 0;
-
 var express = require('express');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
