@@ -87,15 +87,39 @@
 			if(role == "player") {
 				socket.on('simon message', function(msg) {
 
-					// DOES NOT WORK YET
-					// Go through emitted array and highlight the
+					// Go through emitted array recursively and highlight the
 					// appropriate quadrants in the view for the player
-					for(var i = 0; i < msg.length; i++) {
-						console.log(msg[i]);
-						var quadrant = $(".quadrant-active[value = \"" + msg[i] + "\"]");
-    						quadrant.addClass('quadrant-highlight');
-    						// quadrant.removeClass('quadrant-highlight');
+					var i = 0;
+					function quadrantLoop() {
+
+						//Timeout used to light up each quadrant every 1 second
+						setTimeout(function(){
+
+							//If the quadrant is highlighted, remove the highlight class
+							if($('input.quadrant-active').hasClass('quadrant-highlight')) {
+								$('input.quadrant-active').removeClass('quadrant-highlight');
+							}
+							console.log(i);
+
+							//Adding highlight class to corresponding quadrant
+							var quadrant = $(".quadrant-active[value = \"" + msg[i] + "\"]");
+							quadrant.addClass('quadrant-highlight');
+
+							//If the array is not finished, run function again
+							i++;
+							if (i < msg.length) {
+								quadrantLoop();
+							}
+
+							//Else, remove the last highlight class
+							else {
+								setTimeout(function() {
+									$('input.quadrant-active').removeClass('quadrant-highlight');
+								}, 1000);		
+							}
+						}, 1000);
 					}
+					quadrantLoop();
 				});
 			}
 			else if (role == "simon") {
