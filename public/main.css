@@ -87,3 +87,11 @@ button:active {
 .quadrant-active:focus {
 	outline: 0;
 }
+
+@media (max-width: 1200px) {
+	.player, .simon {
+		margin-left: auto;
+		margin-right: auto;
+		float: none;
+	}
+}

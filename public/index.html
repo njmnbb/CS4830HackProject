@@ -3,6 +3,7 @@
 <head>
 	<title>Socket Simon</title>
 	<link rel="stylesheet" type="text/css" href="main.css">
+	<meta name = "viewport" content = "width = device-width, initial-scale = 1">
 </head>
 <body>
 	<img src = "images/logo.png" class = "logo">
@@ -90,10 +91,10 @@
 					// Go through emitted array and highlight the
 					// appropriate quadrants in the view for the player
 					for(var i = 0; i < msg.length; i++) {
-						console.log(msg);
+						console.log(msg[i]);
 						var quadrant = $(".quadrant-active[value = \"" + msg[i] + "\"]");
     						quadrant.addClass('quadrant-highlight');
-    						quadrant.removeClass('quadrant-highlight');		
+    						// quadrant.removeClass('quadrant-highlight');
 					}
 				});
 			}
