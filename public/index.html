@@ -28,12 +28,13 @@
 	</div>
 
 	<!-- Scripts at bottom for faster page loading -->
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-	<script src="https://cdn.socket.io/socket.io-1.2.0.js">
+	<script>
 		var socket = io();
 		var role;
-		//var simonArr = [];
-		//var round = 1;
+		var simonArr = [];
+		var round = 1;
 
 		// Function for 'start' buttons
 	 	function startGame(sentRole) {
@@ -47,9 +48,9 @@
 
 	    	// populate with gameData
 	    	loadGameAs(role, 'player', 'simon', 'header');
-	    	while(1) {
+	    	// while(1) {
 	    		playRound();
-	    	}
+	    	// }
 	 	}
 
 	 	// Function to get current role of player.
@@ -93,7 +94,7 @@
 					simonArr.push($(this).attr('value'));
 					console.log(simonArr);
 					console.log(round);
-					//socket.emit('simon message', "hello");
+					socket.emit('simon message', simonArr);
 				}
 			});
 		}
