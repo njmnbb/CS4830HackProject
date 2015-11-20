@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket){
 	console.log('a user connected');
-  socket.on('simon message', function(msg){
+  	socket.on('simon message', function(msg){
     io.emit('simon message', msg);
 	console.log(msg);
   });

@@ -33,8 +33,8 @@
 	<script>
 		var socket = io();
 		var role;
-		var simonArr = [];
-		var round = 1;
+		var round = 4; // Using 4 for testing. Should be 0 normally
+		var numPlayers = 0;
 
 		// Function for 'start' buttons
 	 	function startGame(sentRole) {
@@ -49,7 +49,7 @@
 	    	// populate with gameData
 	    	loadGameAs(role, 'player', 'simon', 'header');
 	    	// while(1) {
-	    		playRound();
+	    		playRound(role);
 	    	// }
 	 	}
 
@@ -82,21 +82,45 @@
 			}
 		}
 
-		function playRound() {
-			// Appends the id of the clicked quadrant to
-			// an array. Array can only be as long as the current
-			// round (i.e. on round 3, array can only have 3 values)
-			$(document).on("click", ".quadrant-active", function() {
-				if(simonArr.length >= round) {
-					return 0;
-				}
-				else {
-					simonArr.push($(this).attr('value'));
-					console.log(simonArr);
-					console.log(round);
-					socket.emit('simon message', simonArr);
-				}
-			});
+		function playRound(role) {
+			if(role == "player") {
+				socket.on('simon message', function(msg) {
+
+					// DOES NOT WORK YET
+					// Go through emitted array and highlight the
+					// appropriate quadrants in the view for the player
+					for(var i = 0; i < msg.length; i++) {
+						console.log(msg);
+						var quadrant = $(".quadrant-active[value = \"" + msg[i] + "\"]");
+    						quadrant.addClass('quadrant-highlight');
+    						quadrant.removeClass('quadrant-highlight');		
+					}
+				});
+			}
+			else if (role == "simon") {
+				var simonArr = [];
+				$(document).on("click", ".quadrant-active", function() {
+
+					// Appends the value of the clicked quadrant to
+					// an array. Array can only be as long as the current
+					// round (i.e. on round 3, array can only have 3 values)
+					if(simonArr.length >= round) {
+						return 0;
+					}
+					// Otherwise, add Simon's entires to array and
+					// emit array through sockets
+					else {
+						simonArr.push($(this).attr('value'));
+						console.log(simonArr);
+						console.log(round);
+
+						// If the array is "full" (equal to round), emit array to player
+						if(simonArr.length == round) {
+							socket.emit('simon message', simonArr);
+						}
+					}
+				});
+			}
 		}
 	</script>
 </body>

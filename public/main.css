@@ -76,6 +76,10 @@ button:active {
 	margin-left: 2px;
 }
 
+.quadrant-highlight {
+	opacity: .6;
+}
+
 .quadrant-active:active {
 	opacity: .6;
 }
