@@ -31,7 +31,10 @@
 	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 	<script type="text/javascript">
+		var socket = io();
 		var role;
+		var simonArr = [];
+		var round = 1;
 
 		// Function for 'start' buttons
 	 	function startGame(sentRole) {
@@ -39,9 +42,9 @@
 	    	role = sentRole;
 
 	    	// Clear Header and game frame
-	    	clearDivByClassName('simon');
-	    	clearDivByClassName('player');
-	    	clearDivByClassName('header');
+	    	clearDiv('simon');
+	    	clearDiv('player');
+	    	clearDiv('header');
 
 	    	// populate with gameData
 	    	loadGameAs(role, 'player', 'simon', 'header');
@@ -55,29 +58,43 @@
 	 	}
 
 	 	// Clear a Div
-	 	function clearDivByClassName(elementClass) {
-	    	document.getElementsByClassName(elementClass)[0].innerHTML = "";
+	 	function clearDiv(elementID) {
+	    	document.getElementsByClassName(elementID)[0].innerHTML = "";
 		}
 
 		// Game functions
 		function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
 			if( role == 'player') {
-			editHtml(headerDiv, '<p class = "header-text">Waiting for Simon...</p>');
-			editHtml(leftDiv, '<p class = "header-text">You</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class="role-description">put simon thingy here</p>');
-			editHtml(rightDiv, '<p class = "header-text">Simon</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "role-description">lalalal the simon is making a pattern</p>');
+				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Waiting for Simon...</p>';
+				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
+				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant">';
 			}
 			else if( role == 'simon' ) {
-			editHtml(headerDiv, '<p class = "header-text">Create a pattern... NOW YOU MF</p>');
-			editHtml(leftDiv, '<p class = "header-text">You</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "<p class="role-description">record the pattern here.... lolol');
-			editHtml(rightDiv, '<p class = "header-text">Player</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant"><p class = "role-description">the player is here.</p>');
+				socket.on('simon message', function(msg){
+					console.log("Role 'Simon'. Message recieved");
+				});
+				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Create a pattern...</p>';
+				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input><button>Send</button>';
+				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant">';
+
+				// Appends the id of the clicked quadrant to
+				// an array. Array can only be as long as the current
+				// round (i.e. on round 3, array can only have 3 values)
+				$(document).on("click", ".quadrant-active", function() {
+					if(simonArr.length >= round) {
+						return 0;
+					}
+					else {
+						simonArr.push($(this).attr('value'));
+						console.log(simonArr);
+						console.log(round);
+						//socket.emit('simon message', "hello");
+					}
+				});
 			}
 			else {
 				// No
 			}
-		}
-
-		function editHtml(className, html) {
-			document.getElementsByClassName(className)[0].innerHTML = html;
 		}
 	</script>
 </body>

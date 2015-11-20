@@ -29,7 +29,7 @@ body {
 .player, .simon {
 	height: 500px;
 	width: 350px;
-	margin-top: 50px;
+	margin-top: 20px;
 	border: 1px solid grey;
 	text-align: center;
 	font-size: 25px;
@@ -71,11 +71,15 @@ button:active {
 	background-color: #33cc33;
 }
 
-.quadrant {
+.quadrant, .quadrant-active {
 	margin-right: 2px;
 	margin-left: 2px;
 }
 
-.quadrant:active {
-	opacity: .3;
+.quadrant-active:active {
+	opacity: .6;
+}
+
+.quadrant-active:focus {
+	outline: 0;
 }

@@ -14,10 +14,11 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket){
-  socket.on('pattern sequence', function(patten_sequence){
-    io.emit('pattern sequence', pattern_sequence);
-	console.log(pattern_sequence);
-  });
+	//console.log('a user connected');
+ //  socket.on('simon message', function(msg){
+ //    io.emit('simon message', msg);
+	// console.log(msg);
+ //  });
 });;
 
 app.listen(process.env.PORT || 3000, function(){
