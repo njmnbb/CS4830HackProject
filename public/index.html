@@ -50,7 +50,7 @@
 	    	// populate with gameData
 	    	loadGameAs(role, 'player', 'simon', 'header');
 	    	// while(1) {
-	    		playRound(role);
+	    		playRound(role, 'player', 'simon', 'header');
 	    	// }
 	 	}
 
@@ -70,20 +70,20 @@
 		function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
 			if( role == 'player') {
 				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Waiting for Simon...</p>';
-				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
+				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p>';
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant">';
 			}
 			else if( role == 'simon' ) {
 				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Create a pattern...</p>';
 				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input><button>Send</button>';
-				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant">';
+				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p>';
 			}
 			else {
 				// No
 			}
 		}
 
-		function playRound(role) {
+		function playRound(role, leftDiv, rightDiv, headerDiv) {
 			if(role == "player") {
 				socket.on('simon message', function(msg) {
 
@@ -141,7 +141,20 @@
 
 						// If the array is "full" (equal to round), emit array to player
 						if(simonArr.length == round) {
+
+							// Change header
+							clearDiv(headerDiv);
+							document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Pattern Sent!</p>';
+
+							// left div
+							clearDiv(leftDiv);
+							document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p>';
+
+							// Right Div
+							clearDiv(rightDiv);
+							document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p><img src="images/simon/green.png" class = "quadrant"><img src="images/simon/red.png" class = "quadrant"><img src="images/simon/yellow.png" class = "quadrant"><img src="images/simon/blue.png" class = "quadrant">';
 							socket.emit('simon message', simonArr);
+
 						}
 					}
 				});
