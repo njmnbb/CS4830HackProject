@@ -68,6 +68,7 @@
 
 		// Game functions
 		function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
+			var counter = 0;
 			if( role == 'player') {
 				// Emitting a message that the player has connected
 				socket.emit('player connected', 'a player has connected');
@@ -75,29 +76,30 @@
 
 				//Does not load game board until simon has also connected
 				socket.on('simon connected', function(){
-
-					// Continuing to emit a message because sockets are stupid
-					socket.emit('player connected', 'a player has connected');
-					document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Waiting for Simon to make a pattern</p>';
-					document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p>';
-					document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
+					if(counter < 1) {
+						socket.emit('player connected', 'a player has connected');
+						document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Waiting for Simon to make a pattern</p>';
+						document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p>';
+						document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
+						counter++;
+					}
 				});
-				
 			}
 			else if( role == 'simon' ) {
 				// Emitting a message that simon has connected
 				socket.emit('simon connected', 'simon has connected');
 				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Waiting for Player to connect...</p>';
 
-				//Does not load game board until simon has also connected
+				//Does not load game board until player has also connected
 				socket.on('player connected', function(){
-
-					// Continuing to emit a message because sockets are stupid
-					socket.emit('simon connected', 'simon has connected');
-					document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Create a pattern...</p>';
-					document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
-					document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p>';
-				});		
+					if(counter < 1) {
+						socket.emit('simon connected', 'simon has connected');
+						document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Create a pattern...</p>';
+						document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
+						document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p>';
+						counter++;
+					}
+				});
 			}
 			else {
 				// No
@@ -185,11 +187,11 @@
 				// Now check patterm.
 
 				// Switch UI first
-				/*
+				
 				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Try to match Simon!</p>';
 				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p>';
-				*/
+				
 			}
 		}
 	</script>
