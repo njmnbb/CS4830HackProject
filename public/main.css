@@ -87,3 +87,7 @@ button:active {
 .quadrant-highlight {
 	opacity: .6;
 }
+
+.hidden {
+	display: none;
+}

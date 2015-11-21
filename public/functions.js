@@ -132,9 +132,9 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 				setTimeout(function(){
 
 					//If the quadrant is highlighted, remove the highlight class
-					// if($('input.quadrant-active').hasClass('quadrant-highlight')) {
-					// 	$('input.quadrant-active').removeClass('quadrant-highlight');
-					// }
+					if($('input.quadrant-active').hasClass('quadrant-highlight')) {
+						$('input.quadrant-active').removeClass('quadrant-highlight');
+					}
 					console.log("QuadrantLoop: " + msg[i]);
 
 					//Adding highlight class to corresponding quadrant
@@ -163,7 +163,10 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 							$(document).on("click", ".quadrant-active", function() {
 								if($(this).attr('value') == msg[i]) {
 									console.log("correct");
-									if(i == msg.length - 1) {
+									console.log("i: " + i);
+									var minusLength = msg.length - 1;
+									console.log("Array length: " + msg.length);
+									if(i === msg.length) {
 										console.log("completed round");
 										socket.emit('round passed', 'a round has been passed');
 									}
@@ -172,7 +175,9 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 									}		
 								}
 								else {
-									console.log("messed up man");
+									document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">You lose!</p>';
+									$(".simon").addClass("hidden");
+									$(".player").addClass("hidden");
 								}
 							});
 							
