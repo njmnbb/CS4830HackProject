@@ -35,6 +35,11 @@ io.on('connection', function(socket){
   		console.log(msg);
   		player = true;
   	});
+
+  	socket.on('round passed', function(msg){
+  		io.emit('round passed', msg);
+  		console.log(msg);
+  	});
 });
 
 // // sending to sender-client only
