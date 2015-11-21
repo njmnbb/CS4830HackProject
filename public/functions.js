@@ -132,14 +132,14 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 				setTimeout(function(){
 
 					//If the quadrant is highlighted, remove the highlight class
-					if($('input.quadrant-active').hasClass('quadrant-highlight')) {
-						$('input.quadrant-active').removeClass('quadrant-highlight');
-					}
-					console.log(i);
+					// if($('input.quadrant-active').hasClass('quadrant-highlight')) {
+					// 	$('input.quadrant-active').removeClass('quadrant-highlight');
+					// }
+					console.log("QuadrantLoop: " + msg[i]);
 
 					//Adding highlight class to corresponding quadrant
-					var quadrant = $(".quadrant-active[value = \"" + msg[i] + "\"]");
-					quadrant.addClass('quadrant-highlight');
+					$(".quadrant-active[value = \"" + msg[i] + "\"]").addClass('quadrant-highlight');
+					// quadrant.addClass('quadrant-highlight');
 
 					//If the array is not finished, run function again
 					i++;
@@ -172,10 +172,9 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 									}		
 								}
 								else {
-									console.log("fucked up man");
+									console.log("messed up man");
 								}
 							});
-							console.log("Im here");
 							
 						}, 1000);		
 					}
@@ -188,4 +187,4 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 socket.on('round passed', function(){
 	console.log("loading new round");
 	loadGameAs(role, 'player', 'simon', 'header');
-});
+})
