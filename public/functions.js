@@ -188,4 +188,4 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 socket.on('round passed', function(){
 	console.log("loading new round");
 	loadGameAs(role, 'player', 'simon', 'header');
-})
+});
