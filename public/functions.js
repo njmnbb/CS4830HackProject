@@ -172,10 +172,10 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 									}		
 								}
 								else {
-									console.log("fucked up man");
+									document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">You lose!</p>';
+									$("#game").addClass("hidden");
 								}
 							});
-							console.log("Im here");
 							
 						}, 1000);		
 					}

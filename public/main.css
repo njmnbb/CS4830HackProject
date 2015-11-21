@@ -88,6 +88,10 @@ button:active {
 	outline: 0;
 }
 
+.hidden {
+	display: none;
+}
+
 @media (max-width: 1200px) {
 	.player, .simon {
 		margin-left: auto;
