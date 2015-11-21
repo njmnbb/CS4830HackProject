@@ -1,23 +1,24 @@
 var socket = io();
 var role;
-var round = 1; // Using 4 for testing. Should be 0 normally
+var round = 0;
 var numPlayers = 0;
+var simonArr = [];
 
 // Function for 'start' buttons
-	function startGame(sentRole) {
-		//alert('You started the game as a ' + sentRole);
-		role = sentRole;
+function startGame(sentRole) {
+	//alert('You started the game as a ' + sentRole);
+	role = sentRole;
 
-		// Clear Header and game frame
-		clearDiv('simon');
-		clearDiv('player');
-		clearDiv('header');
+	// Clear Header and game frame
+	clearDiv('simon');
+	clearDiv('player');
+	clearDiv('header');
 
-		// populate with gameData
-		loadGameAs(role, 'player', 'simon', 'header');
-		playRound(role, 'player', 'simon', 'header');
-		loadGameAs(role, 'player', 'simon', 'header');
-		playRound(role, 'player', 'simon', 'header');
+	// populate with gameData
+	loadGameAs(role, 'player', 'simon', 'header');
+	// while(1) {
+		// playRound(role, 'player', 'simon', 'header', round);
+	// }
 	}
 
 	// Function to get current role of player.
@@ -48,6 +49,8 @@ function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
 				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p>';
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
 				counter++;
+				round++;
+				playRound('player', 'player', 'simon', 'header', round);
 			}
 		});
 	}
@@ -64,6 +67,8 @@ function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
 				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p>';
 				counter++;
+				round++;
+				playRound('simon', 'player', 'simon', 'header', round);
 			}
 		});
 	}
@@ -72,11 +77,13 @@ function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
 	}
 }
 
-function playRound(role, leftDiv, rightDiv, headerDiv) {
+function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 	if (role == "simon") {
-		var simonArr = [];
+		console.log("Simon: Round" + round);
+		// socket.on('round passed', function() {
+		// 	loadGameAs('simon', 'player', 'simon', 'header');
+		// });
 		$(document).on("click", ".quadrant-active", function() {
-
 			// Appends the value of the clicked quadrant to
 			// an array. Array can only be as long as the current
 			// round (i.e. on round 3, array can only have 3 values)
@@ -112,15 +119,15 @@ function playRound(role, leftDiv, rightDiv, headerDiv) {
 	}
 	else if(role == "player") {
 		// Display pattern.
-		var saved_array = [];
-
+		console.log("Player: Round" + round);
 		socket.on('simon message', function(msg) {
 			document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Watch Simon Closely!</p>';
+								playback = 1;
 			// Go through emitted array recursively and highlight the
 			// appropriate quadrants in the view for the player
 			var i = 0;
 			function quadrantLoop() {
-				
+
 				//Timeout used to light up each quadrant every 1 second
 				setTimeout(function(){
 
@@ -133,7 +140,6 @@ function playRound(role, leftDiv, rightDiv, headerDiv) {
 					//Adding highlight class to corresponding quadrant
 					var quadrant = $(".quadrant-active[value = \"" + msg[i] + "\"]");
 					quadrant.addClass('quadrant-highlight');
-					saved_array.push(msg[i]);
 
 					//If the array is not finished, run function again
 					i++;
@@ -147,34 +153,30 @@ function playRound(role, leftDiv, rightDiv, headerDiv) {
 							$('input.quadrant-active').removeClass('quadrant-highlight');
 
 							// Player now tries to solve Simon's pattern
+							var i = 0;
+							var quadrant = $(".quadrant-active[value = \"" + msg[i] + "\"]");
 							document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Try to match Simon!</p>';
 							document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
 							document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p>';
-
-							var i = 0;
+							
+							// If the selected quadrant matches the pattern, move to next number in array
 							$(document).on("click", ".quadrant-active", function() {
-								console.log($(this).attr('value'));
-								console.log( saved_array[i] );
-
-								if( $(this).attr('value') == saved_array[i] ) {
-									document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text"> '+(i+1)+' of '+round+' right!</p>';
-									if((i+1) == round)
-									{
-										// Move on to Next round!
-										document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Yay!</p>';
+								if($(this).attr('value') == msg[i]) {
+									console.log("correct");
+									if(i == msg.length - 1) {
+										console.log("completed round");
+										socket.emit('round passed', 'a round has been passed');
 									}
+									else {
+										i++;
+									}		
 								}
-								else
-								{
-									// Got it wrong!
-									document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Nope!</p>';
-									clearDiv(leftDiv);
-									clearDiv(rightDiv);
-									document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">Game</p>';
-									document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Over</p>';
+								else {
+									console.log("fucked up man");
 								}
-								i++;
 							});
+							console.log("Im here");
+							
 						}, 1000);		
 					}
 				}, 1000);
@@ -183,3 +185,7 @@ function playRound(role, leftDiv, rightDiv, headerDiv) {
 		});
 	}
 }
+socket.on('round passed', function(){
+	console.log("loading new round");
+	loadGameAs(role, 'player', 'simon', 'header');
+})
