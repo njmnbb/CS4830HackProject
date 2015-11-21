@@ -1,23 +1,23 @@
 var socket = io();
 var role;
-var round = 4; // Using 4 for testing. Should be 0 normally
+var round = 1; // Using 4 for testing. Should be 0 normally
 var numPlayers = 0;
 
 // Function for 'start' buttons
 	function startGame(sentRole) {
-	//alert('You started the game as a ' + sentRole);
-	role = sentRole;
+		//alert('You started the game as a ' + sentRole);
+		role = sentRole;
 
-	// Clear Header and game frame
-	clearDiv('simon');
-	clearDiv('player');
-	clearDiv('header');
+		// Clear Header and game frame
+		clearDiv('simon');
+		clearDiv('player');
+		clearDiv('header');
 
-	// populate with gameData
-	loadGameAs(role, 'player', 'simon', 'header');
-	// while(1) {
+		// populate with gameData
+		loadGameAs(role, 'player', 'simon', 'header');
 		playRound(role, 'player', 'simon', 'header');
-	// }
+		loadGameAs(role, 'player', 'simon', 'header');
+		playRound(role, 'player', 'simon', 'header');
 	}
 
 	// Function to get current role of player.
@@ -112,14 +112,15 @@ function playRound(role, leftDiv, rightDiv, headerDiv) {
 	}
 	else if(role == "player") {
 		// Display pattern.
+		var saved_array = [];
+
 		socket.on('simon message', function(msg) {
 			document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Watch Simon Closely!</p>';
-								playback = 1;
 			// Go through emitted array recursively and highlight the
 			// appropriate quadrants in the view for the player
 			var i = 0;
 			function quadrantLoop() {
-
+				
 				//Timeout used to light up each quadrant every 1 second
 				setTimeout(function(){
 
@@ -132,6 +133,7 @@ function playRound(role, leftDiv, rightDiv, headerDiv) {
 					//Adding highlight class to corresponding quadrant
 					var quadrant = $(".quadrant-active[value = \"" + msg[i] + "\"]");
 					quadrant.addClass('quadrant-highlight');
+					saved_array.push(msg[i]);
 
 					//If the array is not finished, run function again
 					i++;
@@ -148,6 +150,31 @@ function playRound(role, leftDiv, rightDiv, headerDiv) {
 							document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Try to match Simon!</p>';
 							document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
 							document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p>';
+
+							var i = 0;
+							$(document).on("click", ".quadrant-active", function() {
+								console.log($(this).attr('value'));
+								console.log( saved_array[i] );
+
+								if( $(this).attr('value') == saved_array[i] ) {
+									document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text"> '+(i+1)+' of '+round+' right!</p>';
+									if((i+1) == round)
+									{
+										// Move on to Next round!
+										document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Yay!</p>';
+									}
+								}
+								else
+								{
+									// Got it wrong!
+									document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Nope!</p>';
+									clearDiv(leftDiv);
+									clearDiv(rightDiv);
+									document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">Game</p>';
+									document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Over</p>';
+								}
+								i++;
+							});
 						}, 1000);		
 					}
 				}, 1000);
