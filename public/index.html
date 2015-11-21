@@ -69,11 +69,13 @@
 		// Game functions
 		function loadGameAs(role, leftDiv, rightDiv, headerDiv) {
 			if( role == 'player') {
+				socket.emit('player connected', 'a player has connected');
 				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Waiting for Simon...</p>';
 				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p>';
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Simon</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
 			}
 			else if( role == 'simon' ) {
+				socket.emit('simon connected', 'simon has connected');
 				document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">Create a pattern...</p>';
 				document.getElementsByClassName(leftDiv)[0].innerHTML = '<p class = "header-text">You</p><input type = "image" value = "0" class = "quadrant-active" src = "images/simon/green.png"></input><input type = "image" value = "1" class = "quadrant-active" src = "images/simon/red.png"></input><input type = "image" value = "2" class = "quadrant-active" src = "images/simon/yellow.png"></input><input type = "image" value = "3" class = "quadrant-active" src = "images/simon/blue.png"></input>';
 				document.getElementsByClassName(rightDiv)[0].innerHTML = '<p class = "header-text">Player</p>';
