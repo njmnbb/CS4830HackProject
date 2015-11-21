@@ -135,11 +135,11 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 					if($('input.quadrant-active').hasClass('quadrant-highlight')) {
 						$('input.quadrant-active').removeClass('quadrant-highlight');
 					}
-					console.log("QuadrantLoop: " + msg[i]);
+					console.log(i);
 
 					//Adding highlight class to corresponding quadrant
-					$(".quadrant-active[value = \"" + msg[i] + "\"]").addClass('quadrant-highlight');
-					// quadrant.addClass('quadrant-highlight');
+					var quadrant = $(".quadrant-active[value = \"" + msg[i] + "\"]");
+					quadrant.addClass('quadrant-highlight');
 
 					//If the array is not finished, run function again
 					i++;
@@ -163,10 +163,7 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 							$(document).on("click", ".quadrant-active", function() {
 								if($(this).attr('value') == msg[i]) {
 									console.log("correct");
-									console.log("i: " + i);
-									var minusLength = msg.length - 1;
-									console.log("Array length: " + msg.length);
-									if(i === msg.length) {
+									if(i == msg.length - 1) {
 										console.log("completed round");
 										socket.emit('round passed', 'a round has been passed');
 									}
@@ -175,11 +172,10 @@ function playRound(role, leftDiv, rightDiv, headerDiv, round) {
 									}		
 								}
 								else {
-									document.getElementsByClassName(headerDiv)[0].innerHTML = '<p class = "header-text">You lose!</p>';
-									$(".simon").addClass("hidden");
-									$(".player").addClass("hidden");
+									console.log("fucked up man");
 								}
 							});
+							console.log("Im here");
 							
 						}, 1000);		
 					}
