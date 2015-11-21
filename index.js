@@ -16,9 +16,27 @@ app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket){
 	console.log('a user connected');
-  socket.on('simon message', function(msg){
-    io.emit('simon message', msg);
-	console.log(msg);
-  });
+
+  	socket.on('simon message', function(msg){
+    	io.emit('simon message', msg);
+		console.log(msg);
+  	});
+
+  	socket.on('simon connected', function(msg) {
+  		io.emit('simon connected', msg);
+  		console.log(msg);
+  		simon = true;
+  	});
+
+  	socket.on('player connected', function(msg) {
+  		io.emit('player connected', msg);
+  		console.log(msg);
+  		player = true;
+  	});
+
+  	socket.on('round passed', function(msg){
+  		io.emit('round passed', msg);
+  		console.log(msg);
+  	});
 });
 
