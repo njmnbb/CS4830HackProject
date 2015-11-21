@@ -25,11 +25,13 @@ io.on('connection', function(socket){
   	});
 
   	socket.on('simon connected', function(msg) {
+  		io.emit('simon connected', msg);
   		console.log(msg);
   		simon = true;
   	});
 
   	socket.on('player connected', function(msg) {
+  		io.emit('player connected', msg);
   		console.log(msg);
   		player = true;
   	});
