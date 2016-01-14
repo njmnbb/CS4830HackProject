@@ -1,6 +1,6 @@
 # CS4830HackProject
 - A hacking project for our web engineering class
-- socketsimon.cloudapp.net
+- [Link to project](socketsimon.cloudapp.net)
 
 ## November 14th, 2015
 - [Sockets Installation](http://socket.io/download/)
