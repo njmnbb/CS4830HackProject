@@ -21,7 +21,7 @@ io.on('connection', function(socket){
 
   	socket.on('simon message', function(msg){
     	io.emit('simon message', msg);
-		console.log(msg);
+		  console.log(msg);
   	});
 
   	socket.on('simon connected', function(msg) {
@@ -40,7 +40,18 @@ io.on('connection', function(socket){
   		io.emit('round passed', msg);
   		console.log(msg);
   	});
+
+    socket.on('game over', function(msg){
+      io.emit('game over', msg);
+      console.log(msg);
+    });
 });
+
+
+
+// Super duper helpful socket cheat sheet
+
+
 
 // // sending to sender-client only
 //  socket.emit('message', "this is a test");
