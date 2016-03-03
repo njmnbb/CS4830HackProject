@@ -1,6 +1,6 @@
-# CS4830HackProject
+# CS4830HackProject - socketsimon-jht5u74j.cloudapp.net
 - A hacking project for our web engineering class
-- [(new)Link to project](http://socketsimon.lertsapp.com)
+- [(new)Link to project](socketsimon-jht5u74j.cloudapp.net)
 
 ## March 2rd, 2016
 - Getting things back up-and-running.
@@ -9,7 +9,7 @@
 
 ## March 3rd, 2016
 - Installed NodeJS, forever, express, socket.io, Fail2Ban.
-- Need to open port 3000 endpoint before any further work can be done
+- Set up "forever" --> use `nohup nodejs index.js > output.log &` instead.
 
 ## --
 
