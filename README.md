@@ -1,6 +1,13 @@
 # CS4830HackProject
 - A hacking project for our web engineering class
-- [Link to project](http://socketsimon.cloudapp.net)
+- [(new)Link to project](http://socketsimon.lertsapp.com)
+
+## March 3rd, 2016
+- Getting things back up-and-running.
+- New server: socketsimon.lertsapp.com (temp) and socketsimon-jht5u74j.cloudapp.net ($
+- Put Github Repo in / & made for public access.
+
+## --
 
 ## November 14th, 2015
 - [Sockets Installation](http://socket.io/download/)
@@ -16,10 +23,4 @@
 
 ## November 19th, 2015
 - Fixed issue with the listener in index.js
-- Started work on connecting player to Simon
-
-## Notes
-- How do we mirror your new Azure machine and this repo?
-- Should we use Sockets or look into another web technology?
-- MAMP?
-- VM Setup? Username/domain/password/endpoints/security/apache
+- Started work on connecting player to Simon.
