@@ -2,10 +2,14 @@
 - A hacking project for our web engineering class
 - [(new)Link to project](http://socketsimon.lertsapp.com)
 
-## March 3rd, 2016
+## March 2rd, 2016
 - Getting things back up-and-running.
 - New server: socketsimon.lertsapp.com (temp) and socketsimon-jht5u74j.cloudapp.net ($
 - Put Github Repo in / & made for public access.
+
+## March 3rd, 2016
+- Installed NodeJS, forever, express, socket.io, Fail2Ban.
+- Need to open port 3000 endpoint before any further work can be done
 
 ## --
 
