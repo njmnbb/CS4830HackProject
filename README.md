@@ -1,6 +1,6 @@
 # CS4830HackProject
 - A hacking project for our web engineering class
-- [(new)Link to project](162.243.245.139:3000)
+- [Link to project](http://162.243.245.139:3000/)
 
 ## October 24th, 2016
 - Moving project over to Dan's box on Digital Ocean
