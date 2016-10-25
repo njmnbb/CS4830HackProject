@@ -6,7 +6,7 @@
 - Moving project over to Dan's box on Digital Ocean
 - Set-up on Ubuntu 16.04: 1) `git clone` project 2) `sudo apt-get install nodejs` 3) `sudo apt-get install npm` 4) `npm install express` 5) `npm install socket.io` 6) `npm install forever` 
 
-## March 2rd, 2016
+## March 2nd, 2016
 - Getting things back up-and-running.
 - New server: socketsimon.lertsapp.com (temp) and socketsimon-jht5u74j.cloudapp.net ($
 - Put Github Repo in / & made for public access.
